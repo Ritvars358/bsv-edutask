@@ -3,11 +3,10 @@ name: Backend Tests
 on:
   push:
     branches:
-      
-master
-pull_request:
-  branches:
-master
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   backend-tests:
@@ -17,31 +16,26 @@ jobs:
       mongodb:
         image: mongo:6
         ports:
-          
-27017:27017
+          - 27017:27017
 
     defaults:
       run:
         working-directory: backend
 
     steps:
-      
-name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      
-name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      
-name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.pip
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.pip
 
-      
-name: Run backend tests
-      run: |
-        python -m pytest test/demo/test_usercontroller.py
+      - name: Run backend tests
+        run: |
+          python -m pytest test/demo/test_usercontroller.py
